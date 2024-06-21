@@ -24,7 +24,6 @@ class Bicicleta:
 b1 = Bicicleta("Vermelha", "Caloi", 2022, 600)
 b2 = Bicicleta("Verde", 'Monark', 2024, 1200)
 
-
 b1.correr()  #Bicicleta.correr(b1)
 b1.buzinar() #Bicicleta.buzinar(b1) 
 b1.parar()   #Bicicleta.parar(b1)
