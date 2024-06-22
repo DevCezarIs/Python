@@ -1,31 +1,29 @@
 class Conta:
-    def __init__(self, saldo=0):
-        self.__saldo = saldo
+    def __init__(self, saldo = 0):
+        self._saldo = saldo
+        
+    def deposito(self, saldo):
+        print("Quanto deseja depositar?")
+        print(f"Ok seu saldo agora é {saldo}")
 
-    def deposito(self, valor):
-        self.__saldo += valor
-        print(f"Ok, seu saldo agora é R$ {self._saldo:.2f}")
+    def saque(self, saldo):
+        if saldo <= 0:
+            print("Ops, Deposite alguma quantia antes de realizar um saque!")
 
-    def saque(self, valor):
-        if self.__saldo <= 0:
-            print("Ops, depósita alguma quantia antes de realizar um saque!")
-        elif valor > self.__saldo:
-            print("Ops, saldo insuficiente para realizar esse saque!")
         else:
-            self.__saldo -= valor
-            print(f"Ok, seu saldo agora é R$ {self.__saldo:.2f}")
+            print("Quanto desseja sacar?")
+            saque_request = input()
 
-    def extrato(self):
-        print(f"Seu saldo agora é de R$ {self.__saldo:.2f}")
+            if saque_request > saldo:
+                print("Ops, Deposite alguma quantia maior antes de realizar esse saque")
+    
+    def extrato(self, saldo):
+        print(f"Seu saldo agora é de R$ {saldo}")
 
 
-# Criar uma conta com saldo inicial de 0
 Cezar = Conta(0)
 
-# Realizar operações na conta
 Cezar.saque(0)
-valor_deposito = float(input("Qual valor para depósito? "))
-Cezar.deposito(valor_deposito)
-valor_saque = float(input("Qual valor para saque? "))
-Cezar.saque(valor_saque)
-Cezar.extrato()
+Cezar.deposito(input("Qual valor?"))
+Cezar.saque(input("Qual valor?"))
+Cezar.extrato(input("Qual valor?"))
