@@ -7,3 +7,9 @@ def meu_decorador(funcao):
     return envelope
     
 @meu_decorador
+def ola(nome):
+    print(f"ola {nome}")
+
+ola("Cezar")
+
+

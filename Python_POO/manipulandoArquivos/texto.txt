@@ -1,0 +1,8 @@
+"O artigo é uma classe de palavras que acompanham substantivos,
+aparecendo antes deles para indicar se esses substantivos são 
+determinados e específicos ou indeterminados e genéricos.
+Assim, os artigos podem ser classificados como definidos 
+ou indefinidos, variando em gênero (masculino ou feminino)
+e em número (singular ou plural) de acordo com o termo 
+que acompanham."
+
