@@ -48,6 +48,55 @@ def criar_tabela_transacoes(conexao, cursor):
     );
     """
     )
-criar_tabela_clientes(conexao, cursor)
-criar_tabela_conta(conexao, cursor)
-criar_tabela_transacoes(conexao, cursor)
+
+class Cliente:
+    def __init__(self,conta_id, nome, tel, data_cadastro):
+        self.nome = nome
+        self.conta_id = conta_id
+        self.tel = tel
+        self.data_cadastro = data_cadastro
+
+class Conta:
+    def __init__(self, client_id, saldo, tipo, data_abertura):
+        
+        self.client_id = client_id
+        self.saldo = saldo
+        self.tipo = tipo
+        self.data_abertura = data_abertura
+    
+    def deposito(self,cursor,conta_id, conexao, valor ):
+        if valor > 0:
+            cursor.execute("UPDATE conta SET saldo = saldo + ? WHERE contaId=?", (valor, conta_id))
+            conexao.commit()
+        else:
+            print("Valor Inválido!")
+    
+    def sacar(self,conta_id, conexao, curso, valor):
+        
+        cursor.execute("SELECT saldo FROM conta WHERE contaId = ?", (conta_id,))
+        resultado = cursor.fetchone()
+
+        if resultado is None:
+            print("Conta não encontrada!")
+            return
+
+        saldo = resultado[0]
+
+        if valor <= 0:
+            print("Valor inválido!")
+            return
+
+        if saldo >= valor:
+            # Atualiza saldo
+            cursor.execute("UPDATE conta SET saldo = saldo - ? WHERE contaId=?", (valor, conta_id))
+            
+            # Registra transação
+            cursor.execute("""
+                INSERT INTO transacoes (id_conta_origem, tipo, valor, data)
+                VALUES (?, ?, ?, DATE('now'))
+            """, (contaId, "saque", valor))
+
+            conexao.commit()
+            print(f"Saque de R${valor:.2f} realizado com sucesso!")
+        else:
+            print("Saldo insuficiente!")
