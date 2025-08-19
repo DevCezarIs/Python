@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT_PATH = Path(__file__).parent
 conexao = sqlite3.connect(ROOT_PATH / "meu_banco.db")
 cursor = conexao.cursor()
+cursor.row_factory = sqlite3.Row
 
 
 # Criando a tabela (só precisa rodar uma vez)
@@ -39,3 +40,22 @@ def remover_registros(conexao, cursor, id):
 def inserir_muitos(conexao, cursor, dados):
     cursor.executemany("INSERT INTO clientes(nome, email) VALUES (?,?) ;", dados)
     conexao.commit()
+
+
+def recuperar_clientes(cursor, id):
+    cursor.execute("SELECT * FROM clientes WHERE id=?;", (id,))
+    return cursor.fetchone()
+
+
+def listar_clientes(cursor):
+    return cursor.execute("SELECT * FROM clientes")
+    
+
+lista = listar_clientes(cursor)
+for cliente in lista:
+        print(dict(cliente))
+
+
+cliente = recuperar_clientes(cursor, 1)
+print(f"Seja Bem vindo {cliente["email"]}")
+
