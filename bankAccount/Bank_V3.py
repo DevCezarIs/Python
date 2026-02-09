@@ -140,7 +140,7 @@ class Transacao(ABC):
     def valor(self):
         pass
 
-    @abstractclassmethod
+
     def registrar(self, conta):
         pass
 
